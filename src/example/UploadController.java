@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 import dao.JDBCConnection;
 
 @WebServlet(description = "This controller gets the upload request and processes it.", urlPatterns = { "/uploadServlet" })
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig
 public class UploadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -40,6 +40,8 @@ public class UploadController extends HttpServlet {
             photo = filePart.getInputStream();
            
             pWriter.println(JDBCConnection.uploadFile(firstName,lastName,photo));
+            
+            response.sendRedirect("download.html");
 		}else {
 			pWriter.println("filepart is null");
 		}
